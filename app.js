@@ -83,6 +83,15 @@
             .attr("y", function(d) { return y(d[1]*100); })
             .attr("height", function(d) { return y(d[0]*100) - y(d[1]*100); })
             .attr("width",x.bandwidth())
+            .on("mousemove", function(d){
+          // Replace hard coded vals (50, 90) with 50% of the tooltip wioth and height + a top buffer
+                tooltip
+                  .style("left", d3.event.pageX -80 + "px")
+                  .style("top", d3.event.pageY - 60 + "px")
+                  .style("display", "inline-block")
+                  .html((d.data.group) + "<br><span>" + ((d[1]-d[0])*100).toFixed(1) + "% </span>");
+            })
+        		.on("mouseout", function(d){ tooltip.style("display", "none");});
     })
 
   }
