@@ -13,13 +13,13 @@
   function app() {
     var graph_container = d3.select("#graph-1-container")
     var svg = d3.select("#graphsvg"),
-        margin = {top: 20, right: 50, bottom: 10, left: 150},
+        margin = {top: 20, right: 50, bottom: 20, left: 150},
         width = parseInt(d3.select('#graphsvg').style('width'))
 
 
         console.log(width)
         var width = width - margin.left - margin.right,
-        graphRatio = .6,
+        graphRatio = .5,
         height = width * graphRatio;
 
         ;
@@ -33,23 +33,16 @@
       // List of groups = species here = value of the first column called group -> I show them on the X axis
       var groups = d3.map(data, function(d){return(d.group)}).keys()
 
-      // Add X axis
-      var x = d3.scaleBand()
-          .domain(groups)
-          .range([0, width])
-          .padding([0.2])
-      svg.append("g")
-        .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
-        .call(d3.axisBottom(x).tickSizeOuter(0));
+
 
       // Add Y axis
       var y = d3.scaleLinear()
-        .domain([0, 1])
+        .domain([0, 100])
         .range([ height, 0 ]);
       svg.append("g")
       .attr("transform", "translate(" + margin.left + "," +  margin.top + ")")
-        .call(d3.axisLeft(y));
-
+        .call(d3.axisLeft(y).tickSizeInner([-width]).tickSizeOuter(0).ticks(5))
+        .attr("class", "y-axis")
       // color palette = one color per subgroup
       var color = d3.scaleOrdinal()
         .domain(subgroups)
@@ -59,7 +52,21 @@
       var stackedData = d3.stack()
         .keys(subgroups)
         (data)
-
+        // Add X axis
+        var x = d3.scaleBand()
+            .domain(groups)
+            .range([0, width])
+            .padding([0.2])
+        svg.append("g")
+          .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
+          .call(d3.axisBottom(x).tickSizeOuter(0).tickSize(0))
+          .attr("class", "x-axis")
+          .selectAll("text")
+      .attr("y", margin.bottom-5)
+      .attr("x", -5)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(-45)")
+      .style("text-anchor", "end");
       // Show the bars
       svg.append("g")
         .selectAll("g")
@@ -73,8 +80,8 @@
           .enter().append("rect")
             .attr("x", function(d) { return x(d.data.group); })
             .attr("transform", "translate(" + margin.left + "," +  margin.top + ")")
-            .attr("y", function(d) { return y(d[1]); })
-            .attr("height", function(d) { return y(d[0]) - y(d[1]); })
+            .attr("y", function(d) { return y(d[1]*100); })
+            .attr("height", function(d) { return y(d[0]*100) - y(d[1]*100); })
             .attr("width",x.bandwidth())
     })
 

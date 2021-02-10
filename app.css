@@ -2,11 +2,11 @@
 
 svg {
   width: 900px;
-  height: 500px;
+  height: 550px;
 }
 .graph-container {
   width: 900px;
-  height: 500px;
+  height: 550px;
   margin: auto;
 }
 
@@ -23,16 +23,21 @@ text {
   font-size: 12px;
   color: #000000;
 }
-.axis path,
-.axis line {
+.x-axis path{
+  stroke: #000;
+  stroke-width: 1px;
+  opacity: 1;
+}
+.y-axis path{
+  display: none;
+}
+.tick line {
   fill: none;
   stroke: #BDC2C6;
   stroke-width: 1px;
   shape-rendering: crispEdges;
 }
-.x path {
-	display: none;
-}
+
 .y line {
   display: none;
 }
