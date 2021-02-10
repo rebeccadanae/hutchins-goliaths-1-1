@@ -13,7 +13,7 @@
   function app() {
     var graph_container = d3.select("#graph-1-container")
     var svg = d3.select("#graphsvg"),
-        margin = {top: 20, right: 50, bottom: 20, left: 150},
+        margin = {top: 20, right: 50, bottom: 20, left: 50},
         width = parseInt(d3.select('#graphsvg').style('width'))
 
 
@@ -57,16 +57,26 @@
             .domain(groups)
             .range([0, width])
             .padding([0.2])
+
+            svg.append("text")
+              .attr("text-anchor", "middle")
+              .attr("transform", "rotate(-90)")
+              .attr("x", -(height+ margin.top + margin.bottom)/2)
+              .attr("y", margin.left/3)
+              .text("Percent of activity accounted for by multinational firms")
+              .style("font-weight", 700)
+
+
         svg.append("g")
           .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
           .call(d3.axisBottom(x).tickSizeOuter(0).tickSize(0))
           .attr("class", "x-axis")
           .selectAll("text")
-      .attr("y", margin.bottom-5)
-      .attr("x", -5)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(-45)")
-      .style("text-anchor", "end");
+          .attr("y", margin.bottom-5)
+          .attr("x", -5)
+          .attr("dy", ".35em")
+          .attr("transform", "rotate(-45)")
+          .style("text-anchor", "end");
       // Show the bars
       svg.append("g")
         .selectAll("g")
@@ -91,7 +101,11 @@
                   .style("display", "inline-block")
                   .html((d.data.group) + "<br><span>" + ((d[1]-d[0])*100).toFixed(1) + "% </span>");
             })
-        		.on("mouseout", function(d){ tooltip.style("display", "none");});
+        		.on("mouseout", function(d){ tooltip.style("display", "none");
+
+
+          });
+
     })
 
   }
