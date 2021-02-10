@@ -37,11 +37,13 @@
 
       // Add Y axis
       var y = d3.scaleLinear()
-        .domain([0, 100])
+        .domain([0, 1])
         .range([ height, 0 ]);
+      var formatPercent = d3.format(".0%");
+
       svg.append("g")
       .attr("transform", "translate(" + margin.left + "," +  margin.top + ")")
-        .call(d3.axisLeft(y).tickSizeInner([-width]).tickSizeOuter(0).ticks(5))
+        .call(d3.axisLeft(y).tickSizeInner([-width]).tickSizeOuter(0).ticks(5).tickFormat(formatPercent))
         .attr("class", "y-axis")
       // color palette = one color per subgroup
       var color = d3.scaleOrdinal()
@@ -57,15 +59,15 @@
             .domain(groups)
             .range([0, width])
             .padding([0.2])
-
+/*
             svg.append("text")
               .attr("text-anchor", "middle")
               .attr("transform", "rotate(-90)")
               .attr("x", -(height+ margin.top + margin.bottom)/2)
-              .attr("y", margin.left/3)
+              .attr("y", margin.left/4)
               .text("Percent of activity accounted for by multinational firms")
               .style("font-weight", 700)
-
+*/
 
         svg.append("g")
           .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
@@ -90,8 +92,8 @@
           .enter().append("rect")
             .attr("x", function(d) { return x(d.data.group); })
             .attr("transform", "translate(" + margin.left + "," +  margin.top + ")")
-            .attr("y", function(d) { return y(d[1]*100); })
-            .attr("height", function(d) { return y(d[0]*100) - y(d[1]*100); })
+            .attr("y", function(d) { return y(d[1]); })
+            .attr("height", function(d) { return y(d[0]) - y(d[1]); })
             .attr("width",x.bandwidth())
             .on("mousemove", function(d){
           // Replace hard coded vals (50, 90) with 50% of the tooltip wioth and height + a top buffer
