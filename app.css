@@ -6,10 +6,12 @@ svg {
 }
 .graph-container {
   width: 900px;
-  height: 550px;
+  height: 600px;
   margin: auto;
 }
-
+#legend-container-1-1{
+  height: 50px;
+}
 
 
 text {
@@ -119,7 +121,7 @@ text {
 @media only screen and (max-width: 720px) {
   .graph-container {
     width: 400px;
-    height: 325px;
+    height: 375px;
     margin: 0 auto;
   }
 #graphsvg{
@@ -139,6 +141,11 @@ text {
   .title-container{
     padding: 0 20px;
     max-width: 300px;
+  }
+
+  #legend-container-1-1{
+    height: 30px;
+    padding-left: 20px;
   }
 
 }

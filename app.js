@@ -11,7 +11,39 @@
     });
   }
   function app() {
-    var graph_container = d3.select("#graph-1-container")
+    var legend_container = d3.select("#legend-container-1-1")
+      .append("svg")
+        .attr("width", 50)
+        .attr("height", 50)
+
+        var us_text = legend_container
+        .append("text")
+        .text("U.S. Parents")
+        .attr("y", 25)
+        .attr("x", 23);
+
+        var foreign_text = legend_container
+        .append("text")
+        .text("U.S. Affiliates of Foreign MNCs")
+        .attr("y", 25)
+        .attr("x", 147);
+
+        legend_container
+        .append("rect")
+        .attr("width", 16)
+        .attr("height", 16)
+        .attr("y", 13)
+        .attr("fill", "#003a70")
+
+        legend_container
+        .append("rect")
+        .attr("width", 16)
+        .attr("height", 16)
+        .attr("y", 13)
+        .attr("x", 125)
+        .attr("fill", "#8ac6ff")
+
+    var legend_svg = d3.select()
     var svg = d3.select("#graphsvg"),
         margin = {top: 20, right: 50, bottom: 20, left: 50},
         width = parseInt(d3.select('#graphsvg').style('width'))
@@ -103,8 +135,13 @@
               d3.select(this)
               .attr("fill", function(d){
                 if(d[0] == 0){
+                  us_text
+                  .style("font-weight", "700")
                   return "#022A4E"
                 }else{
+                  foreign_text
+                  .style("font-weight", "700")
+
                   return "#5AADF6"
                 }
               });
@@ -125,9 +162,14 @@
               d3.select(this)
               .attr("fill", function(d){
                 if(d[0] == 0){
+                  us_text
+                  .style("font-weight", "400")
                   return "#003a70"
                 }else{
+                  foreign_text
+                  .style("font-weight", "400")
                   return "#8ac6ff"
+
                 }
               });
 
