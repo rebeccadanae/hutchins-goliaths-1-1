@@ -88,14 +88,31 @@
           .attr("fill", function(d) { return color(d.key); })
           .selectAll("rect")
           // enter a second time = loop subgroup per subgroup to add all rectangles
-          .data(function(d) { return d; })
+          .data(function(d) {
+            return d; })
           .enter().append("rect")
+          .attr("id", function(d) { return d.key})
             .attr("x", function(d) { return x(d.data.group); })
             .attr("transform", "translate(" + margin.left + "," +  margin.top + ")")
             .attr("y", function(d) { return y(d[1]); })
             .attr("height", function(d) { return y(d[0]) - y(d[1]); })
+            .attr("class", "bar")
             .attr("width",x.bandwidth())
             .on("mousemove", function(d){
+
+              d3.select(this)
+              .attr("fill", function(d){
+                if(d[0] == 0){
+                  return "#022A4E"
+                }else{
+                  return "#5AADF6"
+                }
+              });
+
+
+
+
+
           // Replace hard coded vals (50, 90) with 50% of the tooltip wioth and height + a top buffer
                 tooltip
                   .style("left", d3.event.pageX -80 + "px")
@@ -103,7 +120,18 @@
                   .style("display", "inline-block")
                   .html((d.data.group) + "<br><span>" + ((d[1]-d[0])*100).toFixed(1) + "% </span>");
             })
-        		.on("mouseout", function(d){ tooltip.style("display", "none");
+        		.on("mouseout", function(d){
+
+              d3.select(this)
+              .attr("fill", function(d){
+                if(d[0] == 0){
+                  return "#003a70"
+                }else{
+                  return "#8ac6ff"
+                }
+              });
+
+              tooltip.style("display", "none");
 
 
           });
