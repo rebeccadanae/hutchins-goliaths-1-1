@@ -19,7 +19,7 @@
 
         console.log(width)
         var width = width - margin.left - margin.right,
-        graphRatio = .5,
+        graphRatio = .45,
         height = width * graphRatio;
 
         ;

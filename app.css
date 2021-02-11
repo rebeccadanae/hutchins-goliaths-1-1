@@ -124,12 +124,12 @@ text {
 @media only screen and (max-width: 720px) {
   .graph-container {
     width: 400px;
-    height: 180px;
+    height: 325px;
     margin: 0 auto;
   }
 #graphsvg{
   width: 400px;
-  height: 180px;
+  height: 325px;
 }
   .logo-container {
     display:none;
